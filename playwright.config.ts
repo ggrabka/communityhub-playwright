@@ -70,10 +70,13 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+   /*Run your local dev server before starting the tests */
+   webServer: {
+     command: 'node server.js',
+     cwd: './WebdevLighthouseProject/CommunityHub/backend',
+     url: 'http://localhost:3000/api/health',
+     timeout: 30 * 1000,
+     reuseExistingServer: !process.env.CI,
+     stdout: 'pipe',
+   },
 });
