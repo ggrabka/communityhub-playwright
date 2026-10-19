@@ -17,3 +17,25 @@ test('successful logout displays login view', async ({ page }) => {
     await expect(page.locator('#login-view')).toBeVisible();
     await expect(page.locator('#dashboard-view')).toBeHidden();
 });
+
+test('logout invalidates authenticated session', async ({ page }) => {
+    await page.goto('/');
+
+    const loginPage = new LoginPage(page);
+    const dashboardPage = new DashboardPage(page);
+
+    await expect(page).toHaveTitle('CommunityHub');
+    
+    await loginPage.login('admin', 'admin123');
+
+    await expect(page.locator('#dashboard-view')).toBeVisible();
+    await expect(page.locator('#login-view')).toBeHidden();
+
+    await dashboardPage.logout();
+    await expect(page.locator('#login-view')).toBeVisible();
+    await expect(page.locator('#dashboard-view')).toBeHidden();
+    
+    await page.reload();
+    await expect(page.locator('#login-view')).toBeVisible();
+    await expect(page.locator('#dashboard-view')).toBeHidden();
+});

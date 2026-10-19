@@ -26,3 +26,15 @@ test('should display an error message for invalid credentials', async ({ page })
     await expect(page.locator('#login-view')).toBeVisible();
     await expect(page.locator('#dashboard-view')).toBeHidden();
 });
+
+test('authenticated session persists after page reload', async ({ page }) => {
+    await page.goto('/');
+    
+    const loginPage = new LoginPage(page);
+    await loginPage.login('admin', 'admin123');
+    await expect(page.locator('#dashboard-view')).toBeVisible();
+
+    await page.reload();
+    await expect(page.locator('#dashboard-view')).toBeVisible();
+    await expect(page.locator('#login-view')).toBeHidden();
+});
