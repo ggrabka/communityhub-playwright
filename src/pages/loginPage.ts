@@ -1,4 +1,4 @@
-import { Locator, Page} from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class LoginPage {
     private readonly usernameInput: Locator;
