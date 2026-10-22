@@ -138,7 +138,24 @@ test('edit a task', async ({ page }) => {
         expect(typeof responseBody.task?.id).toBe('number');
         taskId = responseBody.task.id;
 
-        await expect(page.locator('#tasks-list').getByText(editedTaskTitle, { exact: true })).toBeVisible();
+        const editedTaskCard = page.locator('#tasks-list .list-item')
+            .filter({
+                has: page.getByRole('heading', {
+                    name: editedTask.title,
+                    exact: true
+                })
+            })
+
+        await expect(editedTaskCard).toBeVisible();
+        await expect(editedTaskCard).toContainText(editedTask.title);
+        await expect(editedTaskCard).toContainText(editedTask.description);
+        await expect(editedTaskCard).toContainText(
+            `Responsible person: ${editedTask.responsiblePerson}`
+            );
+        await expect(editedTaskCard.locator('.status-badge')).toHaveText(editedTask.status);
+        await expect(editedTaskCard).toContainText(`Due date: ${editedTask.dueDate}`);
+
+
     } finally {
 
         if (taskId !== undefined) {

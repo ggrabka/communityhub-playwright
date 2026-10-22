@@ -83,6 +83,17 @@ export class TasksPage {
         await taskCard.locator('.card-actions').getByRole("button", { name: 'Save changes' }).click();
     }
 
+
+
+    async deleteTask(taskTitle: string) {
+        const taskCard = this.taskList.locator('.list-item').filter({hasText: taskTitle});
+        this.page.once('dialog', async dialog => {
+            await dialog.accept();
+            });
+        await taskCard.getByRole('button', { name: 'Delete' }).click();
+
+    }
+
 }
 
 
