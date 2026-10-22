@@ -20,16 +20,6 @@ export class TasksPage {
     private readonly statusSelect: Locator;
     private readonly dueDateInput: Locator;
     private readonly submitButton: Locator;
-    private readonly editButton: Locator;
-
-    private readonly editTitleInput: Locator;
-    private readonly editDescriptionInput: Locator
-    private readonly editResponsiblePersonInput: Locator;
-    private readonly editStatusSelect: Locator;
-    private readonly editDueDateInput: Locator
-    private readonly editSubmitButton: Locator;
-
-
 
     constructor(private page: Page) {
         this.newTaskButton = this.page.getByRole('button', { name: /New Task/ });
@@ -43,15 +33,6 @@ export class TasksPage {
         this.statusSelect = this.taskForm.getByLabel('Status', { exact: true });
         this.dueDateInput = this.taskForm.getByLabel('Due date', { exact: true });
         this.submitButton = this.taskForm.getByRole('button', { name: 'Create task' });
-
-        this.editButton = this.taskList.getByRole('button', { name: 'Edit' }).first();
-
-        this.editTitleInput = this.taskList.getByLabel('Title', { exact: true });
-        this.editDescriptionInput = this.taskList.getByLabel('Description', { exact: true });
-        this.editResponsiblePersonInput = this.taskList.getByLabel('Responsible person', { exact: true });
-        this.editStatusSelect = this.taskList.getByLabel('Status', { exact: true });
-        this.editDueDateInput = this.taskList.getByLabel('Due date', { exact: true });
-        this.editSubmitButton = this.taskList.getByLabel('Save changes', { exact: true});
     }
 
     async openCreateForm(): Promise<void> {
